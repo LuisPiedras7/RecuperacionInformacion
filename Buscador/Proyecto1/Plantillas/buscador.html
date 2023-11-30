@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador | {{buscar}}</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Fondo claro */
+            color: #673ab7; /* Color morado */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #4caf50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #content {
+            margin: 20px;
+            flex: 1;
+            width: 80%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            background-color: #fff; /* Fondo claro */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #999;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            width: 100%;
+            font-size: 1em;
+            border: 2px solid #555;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #d1c4e9; /* Fondo claro morado */
+            color: #673ab7; /* Color morado */
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #03a9f4;
+            font-weight: bold;
+            display: block;
+            font-size: 1em;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            width: 100%;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            color: #4caf50;
+        }
+
+        .cont {
+            color: #888;
+            font-size: 0.8em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Buscador</h1>
+        <form id="searchForm">
+            <label for="palabra">Buscar:</label>
+            <input type="text" id="palabra" name="palabra" value="{{buscar}}" required>
+            <button type="button" onclick="buscar()">Buscar</button>
+        </form>
+
+        <p class="cont">{{cont}} resultados encontrados en {{tiempo}}</p>
+        <br>
+
+        <ul>
+            {% for url, titulo, frecuencia in links %}
+                <li><a href="{{url}}" target="_blank">{{titulo}} | Frecuencia: {{frecuencia}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        Autores: Denisse Amalinali Flores Jiménez || Luis Fernando Piedras Ortiz
+    </footer>
+
+    <script>
+        function buscar() {
+            var palabra = document.getElementById('palabra').value;
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+
+            // Construir la URL dinámica
+            var dynamicURL = protocol + '//' + host + '/search/' + palabra;
+
+            // Redireccionar a la URL dinámica
+            window.location.href = dynamicURL;
+        }
+    </script>
+</body>
+</html>
+
+
